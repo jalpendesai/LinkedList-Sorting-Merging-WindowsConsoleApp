@@ -10,7 +10,7 @@ namespace LinkedListLibrary
         private ListNode firstNode;
         private ListNode lastNode;
         private string name; // string like "list" to display
-        public int numberOfElement = 0;
+        //public int numberOfElement = 0;  //For calculating number of elements present in the list
 
         // construct empty List with specified name
         public List(string listName)
@@ -36,7 +36,7 @@ namespace LinkedListLibrary
             }
             else
                 firstNode = new ListNode(insertItem, firstNode);
-            numberOfElement++;
+            //numberOfElement++;
         } // end method InsertAtFront
 
         // Insert object at end of List. If List is empty, 
@@ -51,7 +51,7 @@ namespace LinkedListLibrary
                 lastNode.Next = new ListNode(insertItem);
                 lastNode = lastNode.Next;
             }
-            numberOfElement++;
+            //numberOfElement++;
         } // end method InsertAtBack
 
         // remove first node from List
@@ -67,7 +67,7 @@ namespace LinkedListLibrary
                 firstNode = lastNode = null;
             else
                 firstNode = firstNode.Next;
-            numberOfElement--;
+            //numberOfElement--;
 
             return removeItem; // return removed data
 
@@ -96,11 +96,54 @@ namespace LinkedListLibrary
                 lastNode = current;
                 current.Next = null;
             } // end else
-            numberOfElement--;
+            //numberOfElement--;
             return removeItem; // return removed data
         } // end method RemoveFromBack
         
-        
+        // Sort the List in Ascending/Descending Order
+        public List Sort()
+        {
+            object temp;  //Temporary object
+            ListNode currentNode = firstNode;   //Taking currentNode as the firstNode
+            ListNode nextNode, minNode;
+            int min, currentValue;
+            
+
+            //Loop until the currentNode is not empty
+            while (currentNode != null)
+            {
+                // Considering currentNode as the minimum node
+                minNode = currentNode;
+
+                // Assigning the node after the currenNode as nextNode
+                nextNode = currentNode.Next;
+
+                // Loop until NextNode is not empty
+                while (nextNode != null)
+                {
+                    //Getting Value of nextNode and minimum Node
+                    currentValue = Convert.ToInt32(nextNode.Data);
+                    min = Convert.ToInt32(minNode.Data);
+
+                    // If minimum node is greater than nextnode
+                    // then assign that node to min node
+                    if (min > currentValue)
+                    {
+                        minNode = nextNode;
+                    }
+                    nextNode = nextNode.Next;
+                }
+
+                //Swapping minimumNode & currentNode
+                temp = currentNode.Data;
+                currentNode.Data = minNode.Data;
+                minNode.Data = temp;
+
+                //Next node
+                currentNode = currentNode.Next;
+            }
+            return this;
+        }
 
         // return true if List is empty
         public bool IsEmpty()
@@ -129,8 +172,8 @@ namespace LinkedListLibrary
             } // end while
 
             Console.WriteLine( "\n" );
-                //Displaying number of elements in the list
-                Console.WriteLine("Number of Elements in List:" + numberOfElement);
+                // Displaying number of elements in the list
+                // Console.WriteLine("Number of Elements in List:" + numberOfElement);
          } // end else
       } // end method Display
    } // end class List

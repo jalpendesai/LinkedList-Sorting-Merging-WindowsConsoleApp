@@ -18,8 +18,18 @@ namespace LinkedListLibrary
             list.InsertAtFront("30");
             list.InsertAtFront("80");
             list.InsertAtFront("20");
-            //Display items present in the list
+
+
+
+            //Displaying Unsorted List
+            Console.WriteLine("Unsorted List: ");
             list.Display();
+
+            //Sorting List
+            List SortedList = list.Sort();
+            list.Display();
+
+
             Console.ReadKey();
             
         }

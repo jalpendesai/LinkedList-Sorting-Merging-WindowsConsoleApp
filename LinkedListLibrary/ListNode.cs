@@ -7,7 +7,8 @@ namespace LinkedListLibrary
 {
     public class ListNode
     {
-        public object Data { get; private set; }
+        // public object Data { get; private set; }    // Inaccessible Error Due to Private Set
+        public object Data { get; set; }
 
         public ListNode Next { get; set; }
 
