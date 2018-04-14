@@ -11,6 +11,7 @@ namespace LinkedListLibrary
         private ListNode lastNode;
         private string name; // string like "list" to display
         //public int numberOfElement = 0;  //For calculating number of elements present in the list
+        private List mergedList;
 
         // construct empty List with specified name
         public List(string listName)
@@ -24,6 +25,7 @@ namespace LinkedListLibrary
         {
         } // end default constructor
 
+        //-------------------------------------------------- Insert Node -----------------------------------------//
         // Insert object at front of List. If List is empty, 
         // firstNode and lastNode will refer to same object.
         // Otherwise, firstNode refers to new node.
@@ -54,6 +56,7 @@ namespace LinkedListLibrary
             //numberOfElement++;
         } // end method InsertAtBack
 
+        //------------------------------------------- Remove Node ----------------------------------//
         // remove first node from List
         public object RemoveFromFront()
         {
@@ -100,7 +103,7 @@ namespace LinkedListLibrary
             return removeItem; // return removed data
         } // end method RemoveFromBack
         
-        // Sort the List in Ascending/Descending Order
+        //-------------------------------------- Sorting List -------------------------------------------------//
         public List Sort()
         {
             object temp;  //Temporary object
@@ -145,6 +148,64 @@ namespace LinkedListLibrary
             return this;
         }
 
+        //----------------------------------- Merging List ----------------------------------------------//
+        public List Merge(List list2)
+        {
+            mergedList = new List("Merged List");
+            List list1 = this;
+
+            // Taking FirstNodes of the lists 
+            ListNode currentList1 = list1.firstNode;
+            ListNode currentList2 = list2.firstNode;
+
+            // Initializing current with 0
+            int currentL1 = 0;
+            int currentL2 = 0;
+
+            // Merge list, if the list are not empty
+            while (currentList1 != null && 
+                   currentList2 != null)
+            {
+        
+                // Getting Value of both currentLists
+                currentL1 = Convert.ToInt32(currentList1.Data);
+                currentL2 = Convert.ToInt32(currentList2.Data);
+
+
+                // Sorting the currentNodes and
+                // Adding it to the mergedList
+                if (currentL1 < currentL2)
+                {
+                    mergedList.InsertAtBack(currentL1);
+                    currentList1 = currentList1.Next;
+                }
+                else
+                {
+                    mergedList.InsertAtBack(currentL2);
+                    currentList2 = currentList2.Next;
+                }
+            }
+
+            
+            // Adding remaining lists of list1 to mergedList
+            while (currentList1 != null)
+            {
+                currentL1 = Convert.ToInt32(currentList1.Data);
+                mergedList.InsertAtBack(currentL1);
+                currentList1 = currentList1.Next;
+            }
+
+            // Adding remaining lists of list2 to mergedList
+            while (currentList2 != null)
+            {
+                currentL2 = Convert.ToInt32(currentList2.Data);
+                mergedList.InsertAtBack(currentL2);
+                currentList2 = currentList2.Next;
+            }
+
+            return mergedList;
+        }
+
         // return true if List is empty
         public bool IsEmpty()
       {
@@ -160,7 +221,7 @@ namespace LinkedListLibrary
          } // end if
          else
          {
-            Console.Write( "The " + name + " is: " );
+            //Console.Write( "The " + name + " is: " );
             ListNode current = firstNode;
             // output current node data while not at end of list
             while ( current != null )
@@ -171,7 +232,7 @@ namespace LinkedListLibrary
                current = current.Next;
             } // end while
 
-            Console.WriteLine( "\n" );
+            //Console.WriteLine( "\n" );
                 // Displaying number of elements in the list
                 // Console.WriteLine("Number of Elements in List:" + numberOfElement);
          } // end else
